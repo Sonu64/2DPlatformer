@@ -23,7 +23,7 @@ public class fun : MonoBehaviour
     // Update is called once per frame
     void Update() {
         float horizontalInput = movement.x * moveSpeed;
-        float verticalInput = movement.y * moveSpeed;
+        float verticalInput = movement.y * moveSpeed; // not used yet 
         rb.linearVelocity = new Vector2 (horizontalInput, rb.linearVelocityY);
     }
 
