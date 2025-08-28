@@ -9,8 +9,10 @@ public class fun : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private Vector2 movement;
+    private bool isFiring;
 
     [SerializeField] float moveSpeed = 5.0f;
+    [SerializeField] GameObject enemy;
 
 
 
@@ -25,11 +27,21 @@ public class fun : MonoBehaviour
         float horizontalInput = movement.x * moveSpeed;
         float verticalInput = movement.y * moveSpeed; // not used yet 
         rb.linearVelocity = new Vector2 (horizontalInput, rb.linearVelocityY);
+
+        if (isFiring) { 
+            sr.color = Color.yellow;
+            if (enemy != null) 
+                Destroy(enemy);
+        }
     }
 
     public void OnMove(InputValue value) {
         movement = value.Get<Vector2>();
         Debug.Log(movement);
+    }
+
+    public void OnFire(InputValue value) { 
+        isFiring = value.isPressed;
     }
 
 }

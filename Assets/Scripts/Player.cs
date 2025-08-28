@@ -37,6 +37,11 @@ public class Player : MonoBehaviour {
         float horizontalInput = movement.x * moveSpeed;
         //float verticalInput = movement.y * moveSpeed; // not used yet 
         rb.linearVelocity = new Vector2(horizontalInput, rb.linearVelocityY);
+        // Changing local scale to -1 on X for negative velocity, i.e -> Velocity towards left
+        if (movement.x > 0)
+            transform.localScale = new Vector3(1f, 1f, 1f);
+        else if (movement.x < 0)
+            transform.localScale = new Vector3(-1f, 1f, 1f);
 
 
         // Vertical Jump Movement
@@ -56,6 +61,12 @@ public class Player : MonoBehaviour {
     public void OnJump(InputValue jump) {
         isJumping = jump.isPressed;
         Debug.Log(isJumping);
+    }
+
+    public void OnFire(InputValue value) { 
+        // isFiring = value.isPressed;
+        if (value.isPressed) 
+            Debug.Log("Firing !");
     }
 
 }
