@@ -1,29 +1,35 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class fun : MonoBehaviour
 {
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
+    private Vector2 movement;
+
+    [SerializeField] float moveSpeed = 5.0f;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start() {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-        rb.isKinematic = true;
     }
 
     // Update is called once per frame
     void Update() {
-        
+        float horizontalInput = movement.x * moveSpeed;
+        float verticalInput = movement.y * moveSpeed;
+        rb.linearVelocity = new Vector2 (horizontalInput, rb.linearVelocityY);
     }
 
-    private void OnMouseDown() {
-        sr.color = Color.green;
-        rb.isKinematic = false;
+    public void OnMove(InputValue value) {
+        movement = value.Get<Vector2>();
+        Debug.Log(movement);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        Destroy(collision.gameObject);
-    }
 }
